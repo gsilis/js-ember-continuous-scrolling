@@ -1,0 +1,14 @@
+All of the items and stuff
+
+<table>
+  <tr>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Birthdate</th>
+  </tr>
+  {{#each items as |item|}}
+    {{item-item item=item}}
+  {{/each}}
+</table>
+
+{{end-of-page reachedTheEnd=(action "reachedTheEnd")}}

@@ -1,0 +1,7 @@
+.item-item:odd {
+  background-color: lightgray;
+}
+
+.item-item td {
+  padding: 15px;
+}

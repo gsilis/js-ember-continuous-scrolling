@@ -13,7 +13,7 @@ var CollectionClass = {
 
   add: function(data) {
     if (!data.id) {
-      Object.assign({}, data, { id: this.getNextId() });
+      data = Object.assign({}, data, { id: this.getNextId() });
     }
 
     this.items.push(data);
@@ -24,21 +24,20 @@ var CollectionClass = {
   },
 
   query: function(params) {
-    return this.items.filter(this.queryFilterFor(params));
+    var perPage = params.per_page;
+    var page = params.page;
+
+    delete params.per_page;
+    delete params.page;
+
+    var records = this.items.filter(this.queryFilterFor(params));
+    return this.paginate(records, perPage, page);
   },
 
   queryFilterFor: function(params) {
-    var perPage = params.perPage;
-    var page = params.page;
-
-    delete params.perPage;
-    delete params.page;
-
-    var records = function(record) {
+    return function(record) {
       return this.checkRecordAgainstParams(record, params);
     }.bind(this);
-
-    return this.paginate(records, perPage, page);
   },
 
   checkRecordAgainstParams: function(record, params) {
@@ -61,7 +60,7 @@ var CollectionClass = {
     page = page || 1;
     perPage = perPage || 50;
 
-    var startIndex = page - 1 * perPage;
+    var startIndex = (page - 1) * perPage;
     var endIndex = page * perPage;
     var sliced = records.slice(startIndex, endIndex);
 
