@@ -8,6 +8,9 @@ export default Ember.Route.extend({
   setupController: function(controller, model) {
     this._super(...arguments);
 
-    controller.set('items', model);
+    controller.setProperties({
+      items: model,
+      metaData: model.get('content.meta'),
+    });
   },
 });
