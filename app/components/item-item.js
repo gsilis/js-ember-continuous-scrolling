@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['item-item'],
+  classNameBindings: [':item-item', 'isPrimary:is-primary'],
   tagName: 'tr',
   item: null,
 });

@@ -5,3 +5,11 @@
 .item-item td {
   padding: 15px;
 }
+
+.item-item {
+  background-color: tan;
+}
+
+.item-item.is-primary {
+  background-color: lightblue;
+}

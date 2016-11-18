@@ -15,8 +15,8 @@ export default Ember.Route.extend({
 
     controller.setProperties({
       accounts: model.accounts,
-      primaryAccount: accounts.get('firstObject'),
-      secondaryAccount: accounts.get('lastObject'),
+      primaryAccount: model.accounts.get('firstObject'),
+      secondaryAccount: model.accounts.get('lastObject'),
       items: model.items,
       metaData: model.items.get('content.meta'),
     });
