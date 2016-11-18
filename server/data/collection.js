@@ -19,6 +19,16 @@ var CollectionClass = {
     this.items.push(data);
   },
 
+  find: function(id) {
+    for (var i = 0; i < this.items.length; i++) {
+      if (this.items[i].id === id) {
+        return this.items[i];
+      }
+    }
+
+    return null;
+  },
+
   getNextId: function() {
     return this.nextId += 1;
   },
