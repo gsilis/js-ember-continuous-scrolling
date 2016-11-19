@@ -27,13 +27,14 @@ module.exports = function(app, DB) {
 
     activities.meta = { markers: [] };
 
-    for (var i = activities.items.length - 1; i >= 0; i--) {
+    for (var i = 0; i < activities.items.length; i++) {
       var activity = activities.items[i];
 
       if (activity.account_id === primaryAccount.id) {
         if (altAccountItems.length > 2) {
-          activities.meta.markers.push({ ids: altAccountItems.map(item => item.id), account_id: secondaryAccount.id, at_index: i + 1 });
-          activities.items.splice(i + 1, altAccountItems.length);
+          activities.meta.markers.push({ ids: altAccountItems.map(item => item.id), account_id: secondaryAccount.id, at_index: Math.max(0, i - altAccountItems.length) });
+          activities.items.splice(i - 1 - altAccountItems.length, altAccountItems.length);
+          i -= altAccountItems.length;
           altAccountItems = [];
         }
       } else {

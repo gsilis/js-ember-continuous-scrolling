@@ -7,8 +7,12 @@ All of the items and stuff
     <th>Birthdate</th>
     <th>Account</th>
   </tr>
-  {{#each activeItems as |item|}}
-    {{item-item item=item isPrimary=(is-equal item.account.id primaryAccount.id)}}
+  {{#each items as |item|}}
+    {{#if item.isGroup}}
+      {{item-group group=item}}
+    {{else}}
+      {{item-item item=item isPrimary=(is-equal item.account.id primaryAccount.id)}}
+    {{/if}}
   {{/each}}
 </table>
 
