@@ -13,3 +13,7 @@
 .item-item.is-primary {
   background-color: lightblue;
 }
+
+tbody tr td:first-child {
+  border-left: 15px solid black;
+}

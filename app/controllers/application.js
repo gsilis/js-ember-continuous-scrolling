@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
     const totalPages = this.get('metaData.total_pages');
     const page = this.get('page');
 
-    return totalPages < page;
+    return page < totalPages;
   }),
 
   actions: {
@@ -37,6 +37,7 @@ export default Ember.Controller.extend({
         this.setProperties({
           metaData: metaData,
           pageIsLoading: false,
+          page: metaData.page,
         });
       });
     }

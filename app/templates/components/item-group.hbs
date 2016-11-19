@@ -1,0 +1,16 @@
+{{#if showContents}}
+  {{#each fetchedItems as |item|}}
+    {{item-item item=item isPrimary=false}}
+  {{/each}}
+  <tr>
+    <td colspan="4">
+      <button {{action "click"}}>Hide</button>
+    </td>
+  </tr>
+{{else}}
+  <tr>
+    <td colspan="4">
+      +{{itemIds.length}} more items from {{fullName}} <button {{action "click"}}>Show</button>
+    </td>
+  </tr>
+{{/if}}

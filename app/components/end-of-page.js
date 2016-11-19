@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { computed } = Ember;
+
 export default Ember.Component.extend({
   isActive: false,
   isLoading: false,
@@ -18,8 +20,11 @@ export default Ember.Component.extend({
     window.removeEventListener('scroll', this.onScroll);
   },
 
+  shouldStop: computed.or('isLoading', 'isNotActive'),
+  isNotActive: computed.not('isActive'),
+
   onScroll: function(event) {
-    if (this.get('isLoading')) {
+    if (this.get('shouldStop')) {
       return;
     }
 

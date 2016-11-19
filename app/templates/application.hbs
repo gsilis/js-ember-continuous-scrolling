@@ -11,7 +11,7 @@ All of the items and stuff
     {{#if item.isGroup}}
       {{item-group group=item}}
     {{else}}
-      {{item-item item=item isPrimary=(is-equal item.account.id primaryAccount.id)}}
+      {{item-item item=item isPrimary=(is-equal item.account.id primaryAccount.id) data-id=item.id}}
     {{/if}}
   {{/each}}
 </table>

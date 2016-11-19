@@ -25,24 +25,37 @@ module.exports = function(app, DB) {
     var activities = items.query(req.query).asJSON('items');
     var altAccountItems = [];
 
-    activities.meta = { markers: [] };
+    activities.meta.markers = [];
 
     for (var i = 0; i < activities.items.length; i++) {
       var activity = activities.items[i];
 
       if (activity.account_id === primaryAccount.id) {
         if (altAccountItems.length > 2) {
-          activities.meta.markers.push({ ids: altAccountItems.map(item => item.id), account_id: secondaryAccount.id, at_index: Math.max(0, i - altAccountItems.length) });
-          activities.items.splice(i - 1 - altAccountItems.length, altAccountItems.length);
+          var groupEndedAt = i;
+          var groupStartedAt = groupEndedAt - altAccountItems.length;
+          var ids = altAccountItems.map(item => item.id);
+
           i -= altAccountItems.length;
-          altAccountItems = [];
+          activities.items.splice(groupStartedAt, altAccountItems.length);
+          activities.meta.markers.push({ ids: ids, at_index: groupStartedAt, account_id: secondaryAccount.id });
         }
+
+        altAccountItems = [];
       } else {
         altAccountItems.push(activity);
       }
     }
 
     res.send(activities);
+  });
+
+  itemsRouter.get('/:id', function(req, res) {
+    var item = items.find(parseInt(req.params.id));
+
+    res.send({
+      item: item
+    });
   });
 
   app.use('/api/items', itemsRouter);
